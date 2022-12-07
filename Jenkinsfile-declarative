@@ -1,0 +1,37 @@
+def buildnumber = BUILD_NUMBER
+
+pipeline{
+    agent any;
+tools{
+    maven "maven"
+}
+stages{
+    stage('get code'){
+        steps{
+            git branch: 'dev', credentialsId: 'GIT-Credentials', url: 'https://github.com/RahmanAbdul146/spring-boot-mongo-app.git'
+        }
+    }
+    stage('build code'){
+        steps{
+            sh "mvn clean package"
+        }
+    }
+    stage('build image'){
+        steps{
+            sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 015901552966.dkr.ecr.ap-south-1.amazonaws.com"
+            sh "docker build -t 015901552966.dkr.ecr.ap-south-1.amazonaws.com/springboot-app:${buildnumber} ."
+        }
+    }
+    stage('push image'){
+        steps{
+            sh "docker push 015901552966.dkr.ecr.ap-south-1.amazonaws.com/springboot-app:${buildnumber}"
+        }
+    }
+    stage('deploy'){
+        steps{
+            sh "kubectl apply -f springapp.yaml"
+            sh "kubectl set image pod/springapppod springappcontainer=015901552966.dkr.ecr.ap-south-1.amazonaws.com/springboot-app:${buildnumber}"
+        }
+    }
+}
+}
