@@ -29,8 +29,9 @@ stages{
     }
     stage('deploy'){
         steps{
-            sh "kubectl apply -f springapp.yaml"
             sh "kubectl set image deployment/springappdeployment springappcontainer=015901552966.dkr.ecr.ap-south-1.amazonaws.com/springboot-app:${buildnumber}"
+            sh "kubectl apply -f springapp.yaml"
+            
         }
     }
 }
