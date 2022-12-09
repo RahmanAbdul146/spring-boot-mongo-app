@@ -91,10 +91,10 @@ spec:
         volumeMounts:
         - name: mongodbvolume
           mountPath: data/db
-        volumes:
-        - name: mongodbvolume 
-          persistentVolumeClaim:
-            ClaimName: mongopvc
+      volumes:
+      - name: mongodbvolume 
+        persistentVolumeClaim:
+          ClaimName: mongopvc
           
 
 ---
