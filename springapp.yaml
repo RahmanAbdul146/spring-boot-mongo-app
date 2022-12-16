@@ -88,14 +88,14 @@ spec:
           value: rahman146
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: rahman@146
-        volumeMounts:
-        - name: mongodbvolume
-          mountPath: data/db
-      volumes:
-      - name: mongodbvolume 
-        persistentVolumeClaim:
-          claimName: mongopvc
-          
+      ##volumeMounts:
+        ##- name: mongodbvolume
+          ##mountPath: data/db
+      ##volumes:
+      ##- name: mongodbvolume 
+        ##persistentVolumeClaim:
+          ##claimName: mongopvc
+         
 
 ---
 
