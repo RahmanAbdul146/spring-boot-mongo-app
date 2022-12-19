@@ -118,7 +118,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongopvc
 spec:
-  storageClassName: ""
+  storageClassName: "gp2"
   accessModes:
   - ReadWriteOnce
   resources:
