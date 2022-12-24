@@ -49,7 +49,7 @@ kind: Service
 metadata:
   name: springappsvc
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: springapp
   ports:
